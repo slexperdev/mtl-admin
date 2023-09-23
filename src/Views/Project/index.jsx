@@ -4,7 +4,7 @@ import { PlusIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import moment from "moment";
 
 import Layout from "../../Layout";
-import { Alert, AlertDialog, Table } from "../../Components";
+import { AlertDialog, Table } from "../../Components";
 import DepartmentForm from "./Project-form";
 
 import { getFromLocalStorage } from "../../Util/Storage";
@@ -56,7 +56,7 @@ export default function ProjectView() {
       setProjects(response.data);
       setFilterData(response.data);
     } else {
-      Alert({ message: "Something went wrong!", open: true });
+      alert({ message: "Something went wrong!", open: true });
     }
     setIsLoading(false);
   };

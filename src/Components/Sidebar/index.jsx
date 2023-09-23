@@ -38,10 +38,7 @@ export const Sidebar = () => {
         </Typography>
       </div>
       <List>
-        {/* <ListItem
-          className="hover:bg-orange-400 focus:bg-orange-400 active:bg-violet-700 "
-          onClick={() => handleNavigation("/dashboard")}
-        >
+        {/* <ListItem className="hover:bg-orange-400 focus:bg-orange-400 active:bg-violet-700 ">
           <ListItemPrefix>
             <PresentationChartBarIcon className="h-5 w-5" />
           </ListItemPrefix>
@@ -60,7 +57,7 @@ export const Sidebar = () => {
           </ListItem>
         </NavLink>
 
-        {/* <NavLink
+        <NavLink
           to={"/timelogs"}
           className={({ isActive }) => isActive && "bg-orange-400 rounded-lg"}
         >
@@ -68,9 +65,9 @@ export const Sidebar = () => {
             <ListItemPrefix>
               <ClockIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Time Logs
+            Summery
           </ListItem>
-        </NavLink> */}
+        </NavLink>
 
         <NavLink
           to={"/projects"}
