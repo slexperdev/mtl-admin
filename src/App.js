@@ -6,6 +6,7 @@ import HomeView from "./Views/Home";
 import LoginView from "./Views/Login";
 import ProjectView from "./Views/Project";
 import TimeLogView from "./Views/Timelogs";
+import IncentiveView from "./Views/Incentive";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,9 @@ const router = createBrowserRouter([
   {
     path: "/departments",
     element: <DepartmentView />,
+  }, {
+    path: "/incentive",
+    element: <IncentiveView />,
   },
 ]);
 

@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
-export const Table = ({
+export const  Table = ({
   TABLE_ROWS,
   TABLE_HEAD,
   onClickDelete,
@@ -95,7 +95,7 @@ export const Table = ({
                       <IconButton
                         variant="text"
                         color="blue-gray"
-                        onClick={() => onClickEdit(id, name, "edit")}
+                        onClick={() => onClickEdit(id, name, "edit",date  )}
                       >
                         <PencilIcon className="h-4 w-4" />
                       </IconButton>

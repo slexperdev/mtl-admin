@@ -76,11 +76,42 @@ export default function TimeLogView() {
   );
 
   const handleFilterTimeLogs = (e) => {
-    const text = e.target.value;
+    const text = e.target.id;
     setIsLoading(true);
     const result = timeLogs.filter((value) => {
       return value.project.name.toLowerCase().includes(text.toLowerCase());
     });
+
+    if (text === "") {
+      setFilterTimeLogs(timeLogs);
+      setIsLoading(false);
+    } else {
+      setFilterTimeLogs(result);
+      setIsLoading(false);
+    }
+  };
+
+  const handlePauseFilter = (e) => {
+    const text = e.target.value;
+    setIsLoading(true);
+    const result = timeLogs.filter((value) => value.isPaused === +text);
+
+    if (text === "") {
+      setFilterTimeLogs(timeLogs);
+      setIsLoading(false);
+    } else {
+      setFilterTimeLogs(result);
+      setIsLoading(false);
+    }
+  };
+
+  const handleCompleteFilter = (e) => {
+    const text = e.target.value;
+    console.log('text',typeof text)
+    setIsLoading(true);
+    const result = timeLogs.filter((value) =>
+      value.isCompleted === +text
+    );
 
     if (text === "") {
       setFilterTimeLogs(timeLogs);
@@ -100,7 +131,7 @@ export default function TimeLogView() {
   return (
     <Layout>
       <div className="container mx-auto">
-        <Typography variant="h5">Summery</Typography>
+        <Typography variant="h5">Summary</Typography>
         <div className="mt-10 border-2 border-orange-400">
           <div className="my-10 ml-5">
             <div className="w-full md:w-75">
@@ -112,6 +143,24 @@ export default function TimeLogView() {
                 {ProjectNames.map((item, idx) => (
                   <option id={idx}>{item}</option>
                 ))}
+              </select>
+              <select
+                className="border-solid border-2 border-orange-400 p-2 rounded-lg px-4 w-56 ml-5"
+                defaultValue="Pause"
+                onChange={handlePauseFilter}
+              >
+                <option value={""}></option>
+                <option value={"0"}>Ongoing</option>
+                <option value={"1"}>Paused</option>
+              </select>
+              <select
+                className="border-solid border-2 border-orange-400 p-2 rounded-lg px-4 w-56 ml-5"
+                defaultValue="Complete"
+                onChange={handleCompleteFilter}
+              >
+                <option value={""}></option>
+                <option value={"0"}>Ongoing</option>
+                <option value={"1"}>Completed</option>
               </select>
               <Button
                 className="ml-2 bg-orange-400"

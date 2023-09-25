@@ -10,9 +10,11 @@ import ProjectForm from "./Project-form";
 import { getFromLocalStorage } from "../../Util/Storage";
 import { Constant } from "../../Constant";
 import { deleteProject, getProjects } from "../../Services/ProjectService";
+import {getIncentive} from "../../Services/IncentiveService";
+import {IncentiveTable} from "./IncentiveTable";
 
-export default function ProjectView() {
-  const [projects, setProjects] = useState([]);
+export default function IncentiveView() {
+  const [incentives, setIncentives] = useState([]);
   const [project, setProject] = useState({
     id: "",
     name: "",
@@ -29,22 +31,25 @@ export default function ProjectView() {
     handleGetProjects();
   }, []);
 
-  const TABLE_HEAD = ["Name", "Type","Incentive", ""];
+  const TABLE_HEAD = ["Employee name", "Project name","Project Incentive (Rs. )", "Total project time (Minutes)","Employee time (Minutes)","Employee incentive (Rs. )"];
 
-  const TABLE_ROWS = filterData.map(({ id, name,incentive }) => ({
+  const TABLE_ROWS = filterData.map(({ id, employee_name,employee_incentive,project_name,incentive,time,total_time }) => ({
     id: id,
-    name: name,
-    userType: "Project",
-    date: incentive.toString(),
+    employee_name,
+    project_name,
+    total_time,
+    time,
+    incentive,
+    employee_incentive,
   }));
 
   const searchHandler = (text) => {
-    const result = projects.filter((value) => {
-      return value.name.toLowerCase().includes(text.toLowerCase());
+    const result = incentives.filter((value) => {
+      return value.employee_name.toLowerCase().includes(text.toLowerCase());
     });
 
     if (text === "") {
-      setFilterData(projects);
+      setFilterData(incentives);
     } else {
       setFilterData(result);
     }
@@ -52,9 +57,9 @@ export default function ProjectView() {
 
   const handleGetProjects = async () => {
     setIsLoading(true);
-    const response = await getProjects();
+    const response = await getIncentive();
     if (response.success) {
-      setProjects(response.data);
+      setIncentives(response.data);
       setFilterData(response.data);
     } else {
       alert({ message: "Something went wrong!", open: true });
@@ -92,33 +97,25 @@ export default function ProjectView() {
   return (
     <Layout>
       <div className="container mx-auto">
-        <Typography variant="h5">Manage Projects</Typography>
+        <Typography variant="h5">Incentives</Typography>
         <div className="mt-10 border-2 border-orange-400">
           <div className="my-10 float-right mr-5">
             <div className="flex w-full shrink-0 gap-2 md:w-max">
               <div className="w-full md:w-72">
                 <Input
-                  label="Search Projects"
+                  label="Search Users"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                   onChange={(e) => searchHandler(e.target.value)}
                 />
               </div>
-              <Button
-                className="flex items-center gap-3 bg-orange-400"
-                color="blue"
-                size="sm"
-                onClick={() => handleOpen("", "", "add")}
-              >
-                <PlusIcon strokeWidth={2} className="h-4 w-4" /> Add Project
-              </Button>
             </div>
           </div>
           {isLoading ? (
             <div className="flex justify-center items-center w-full my-10">
               <Typography variant="h4">Loading...</Typography>
             </div>
-          ) : projects.length !== 0 ? (
-            <Table
+          ) : incentives.length !== 0 ? (
+            <IncentiveTable
               TABLE_HEAD={TABLE_HEAD}
               TABLE_ROWS={TABLE_ROWS}
               onClickDelete={handleDeleteOpen}
@@ -128,7 +125,7 @@ export default function ProjectView() {
           ) : (
             <div className="flex justify-center items-center w-full my-10">
               <Typography variant="p">
-                There are no projects available!
+                There are no incentives available!
               </Typography>
             </div>
           )}

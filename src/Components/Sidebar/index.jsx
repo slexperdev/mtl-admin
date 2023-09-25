@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import {
@@ -9,17 +9,16 @@ import {
   ListItemPrefix,
 } from "@material-tailwind/react";
 import {
-  PresentationChartBarIcon,
   StarIcon,
   ClockIcon,
   UsersIcon,
-  Cog6ToothIcon,
   PowerIcon,
   TagIcon,
 } from "@heroicons/react/24/solid";
 
 import { removeFromLocalStorage } from "../../Util/Storage";
 import { Constant } from "../../Constant";
+import {CurrencyDollarIcon} from "@heroicons/react/20/solid";
 
 export const Sidebar = () => {
   const navigate = useNavigate();
@@ -65,7 +64,7 @@ export const Sidebar = () => {
             <ListItemPrefix>
               <ClockIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Summery
+            Summary
           </ListItem>
         </NavLink>
 
@@ -90,6 +89,18 @@ export const Sidebar = () => {
               <StarIcon className="h-5 w-5" />
             </ListItemPrefix>
             Departments
+          </ListItem>
+        </NavLink>
+
+        <NavLink
+          to={"/incentive"}
+          className={({ isActive }) => isActive && "bg-orange-400 rounded-lg"}
+        >
+          <ListItem className="hover:bg-orange-400">
+            <ListItemPrefix>
+              <CurrencyDollarIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Incentives
           </ListItem>
         </NavLink>
 
